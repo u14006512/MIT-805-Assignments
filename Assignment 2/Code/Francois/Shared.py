@@ -1,9 +1,11 @@
 import pandas as pd
 import sys
 
+def getPath():
+    return "/home/francois/Source/Crimes_-_2001_to_present.csv"
+
 def getData(nrows = 50):
-    PATH = "F:\Francois\Copy Over\Crimes_-_2001_to_present.csv" # Change yours.
-    data = pd.read_csv(PATH, nrows = nrows if nrows > 0 else sys.maxsize)
+    data = pd.read_csv(getPath(), nrows = nrows if nrows > 0 else sys.maxsize)
 
     data = pd.DataFrame(data[['ID', 
                   'Description', 
