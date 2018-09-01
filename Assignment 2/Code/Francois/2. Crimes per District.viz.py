@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 
-PATH = '2. Crimes per District.txt'
+PATH = './Results/2. Crimes per District.txt'
 
 with open(PATH) as f:
     data = f.readlines()

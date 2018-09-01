@@ -1,5 +1,5 @@
 import ast
-PATH = './Results/3. Crimes per District per Year.txt'
+PATH = './Results/7. Arrests per Year.txt'
 
 with open(PATH) as f:
     data = f.readlines()
