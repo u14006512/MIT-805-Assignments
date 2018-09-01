@@ -11,6 +11,7 @@ def getData(nrows = 50):
                   'Description', 
                   'Location Description',
                   'Arrest',
+                  'Primary Type',
                   'Domestic',
                   'District',
                   'Ward',

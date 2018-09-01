@@ -26,3 +26,7 @@ python '6. Arrests in Total.mr.py' /home/francois/Source/Crimes_-_2001_to_presen
 == Feature 7 - Arrests per Year
 python '7. Arrests per Year.mr.py' /home/francois/Source/smaller.csv > './Results/7. Arrests per Year.txt'
 python '7. Arrests per Year.mr.py' /home/francois/Source/Crimes_-_2001_to_present.csv > './Results/7. Arrests per Year.txt'
+
+== Arrests Likelihood Table Extractor
+python 'Arrests Likelihood Table Extractor.mr.py' /home/francois/Source/smaller.csv > './Results/Arrests Likelihood Table.txt'
+python 'Arrests Likelihood Table Extractor.mr.py' /home/francois/Source/Crimes_-_2001_to_present.csv > './Results/Arrests Likelihood Table.txt'
