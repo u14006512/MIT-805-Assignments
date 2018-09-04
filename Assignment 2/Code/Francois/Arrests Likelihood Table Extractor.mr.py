@@ -10,8 +10,10 @@ class MRArrestsPerYear(MRJob):
         splitted = next(reader)
         if not splitted[0] == 'ID':
             try:
-                # TARGET
-                arrest = str2bool(splitted[8])
+                if int(splitted[0]) % 4 == 0: # This does the training split.
+                    return # This is a test line item.
+                
+                arrest = str2bool(splitted[8]) # TARGET
                 
                 # FEATURES
                 year = int(splitted[17])       
@@ -30,7 +32,6 @@ class MRArrestsPerYear(MRJob):
                 pass
         
     def reducer(self, key, values):
-        # (attributeValue, (YES, NO))
         numberOfItems = 0
         output = dict()
         for value in values:

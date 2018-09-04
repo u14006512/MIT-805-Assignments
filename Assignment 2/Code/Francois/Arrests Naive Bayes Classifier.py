@@ -36,33 +36,38 @@ class Naive:
         }
         
     def classify(self, instance):
-        pArrestFalse = self.getArrestProbabilities()[False]
-        pArrestTrue = self.getArrestProbabilities()[True]  
-        
-        domestic = str(instance["Domestic"]).lower()
-        primaryType = instance["Primary Type"].upper()
-        ward = str(instance["Ward"])
-        locationDescription = instance["Location Description"].upper()
-        #arrest = 
-
-        pDomestic = self.getPAnC("Domestic", domestic)
-        pPrimaryType = self.getPAnC("Primary Type", primaryType)
-        pWard = self.getPAnC("Ward", ward)
-        pLocationDescription = self.getPAnC("Location Description", locationDescription)
-        
-        proportionalProbabilityTrue =  pArrestTrue * pDomestic[True] * pPrimaryType[True] * pWard[True] * pLocationDescription[True]
-        proportionalProbabilityFalse = pArrestFalse * pDomestic[False] * pPrimaryType[False] * pWard[False] * pLocationDescription[False]
-        
-        total = proportionalProbabilityTrue + proportionalProbabilityFalse
-        proportionalProbabilityTrue = proportionalProbabilityTrue / total
-        proportionalProbabilityFalse = proportionalProbabilityFalse / total
-        
-        return {
-                "Actual" : instance.setdefault("Arrest", None),
-                "Prediction" : proportionalProbabilityTrue > proportionalProbabilityFalse,
-                "TrueProbability" : proportionalProbabilityTrue,
-                "FalseProbability": proportionalProbabilityFalse
-        }
+        try:
+            pArrestFalse = self.getArrestProbabilities()[False]
+            pArrestTrue = self.getArrestProbabilities()[True]  
+            
+            domestic = str(instance["Domestic"]).lower()
+            primaryType = instance["Primary Type"].upper()
+            ward = str(instance["Ward"])
+            locationDescription = instance["Location Description"].upper()
+            #arrest = 
+    
+            pDomestic = self.getPAnC("Domestic", domestic)
+            pPrimaryType = self.getPAnC("Primary Type", primaryType)
+            pWard = self.getPAnC("Ward", ward)
+            pLocationDescription = self.getPAnC("Location Description", locationDescription)
+            
+            proportionalProbabilityTrue =  pArrestTrue * pDomestic[True] * pPrimaryType[True] * pWard[True] * pLocationDescription[True]
+            proportionalProbabilityFalse = pArrestFalse * pDomestic[False] * pPrimaryType[False] * pWard[False] * pLocationDescription[False]
+            
+            total = proportionalProbabilityTrue + proportionalProbabilityFalse
+            proportionalProbabilityTrue = proportionalProbabilityTrue / total
+            proportionalProbabilityFalse = proportionalProbabilityFalse / total
+            
+            # print((proportionalProbabilityTrue > proportionalProbabilityFalse, instance.setdefault("Arrest", None)))
+            return {
+                    "Actual" : instance.setdefault("Arrest", None),
+                    "Prediction" : proportionalProbabilityTrue > proportionalProbabilityFalse,
+                    "TrueProbability" : proportionalProbabilityTrue,
+                    "FalseProbability": proportionalProbabilityFalse
+            }
+        except:
+            print('Error reading line!')
+            return None
      
 class DataReader:
     # PATH = '/home/francois/Source/smaller.csv'
@@ -83,8 +88,10 @@ class DataReader:
             lines += buf.count(b'\n')
             buf = read_f(buf_size)
         return lines - 1
+    def getMax(self):
+        return self._totalLines
     
-    def getNext(self):
+    def getNext(self, isTestSplit = True):
         if self._currentLine >= self._totalLines:
             return None
 
@@ -92,6 +99,11 @@ class DataReader:
         self._currentLine = self._currentLine + 1
         reader = csv.reader(line.splitlines(), quotechar='"', delimiter=',')
         splitted = next(reader)
+        
+        if isTestSplit and not int(splitted[0]) % 4 == 0: 
+            return # This is a training line item.
+        if not isTestSplit and int(splitted[0]) % 4 == 0: 
+            return # This is a test line item.
         
         try:
             arrest = self.__str2bool(splitted[8])
@@ -139,10 +151,13 @@ if __name__ == '__main__':
     actual = []
     predicted = []
     
-    for i in range(9000): 
+    for i in range(dataReader.getMax()): 
         instance = dataReader.getNext()
         if not instance == None:
+            print (i)
             result = naive.classify(instance)
+            if result == None:
+                continue
             predicted.append(result["Prediction"])
             actual.append(result["Actual"])
             # print(result["Actual"] == result["Prediction"])
