@@ -35,7 +35,7 @@ class Naive:
             False: self.probabilities["Arrest"]["false"][2]
         }
         
-    def classify(self, instance):
+    def classify(self, instance, useDomestic = True, usePrimaryType = True, useWard = True, useLocationDescription = True):
         try:
             pArrestFalse = self.getArrestProbabilities()[False]
             pArrestTrue = self.getArrestProbabilities()[True]  
@@ -51,8 +51,8 @@ class Naive:
             pWard = self.getPAnC("Ward", ward)
             pLocationDescription = self.getPAnC("Location Description", locationDescription)
             
-            proportionalProbabilityTrue =  pArrestTrue * pDomestic[True] * pPrimaryType[True] * pWard[True] * pLocationDescription[True]
-            proportionalProbabilityFalse = pArrestFalse * pDomestic[False] * pPrimaryType[False] * pWard[False] * pLocationDescription[False]
+            proportionalProbabilityTrue =  pArrestTrue * (pDomestic[True] if useDomestic else 1) * (pPrimaryType[True] if usePrimaryType else 1) * (pWard[True] if useWard else 1) * (pLocationDescription[True] if useLocationDescription else 1)
+            proportionalProbabilityFalse = pArrestFalse * (pDomestic[False] if useDomestic else 1) * (pPrimaryType[False] if usePrimaryType else 1) * (pWard[False] if useWard else 1) * (pLocationDescription[False] if useLocationDescription else 1)
             
             total = proportionalProbabilityTrue + proportionalProbabilityFalse
             proportionalProbabilityTrue = proportionalProbabilityTrue / total
@@ -128,7 +128,7 @@ class DataReader:
 def plotConfusionMatrix(cm, classes):
     cm = cm.astype('float') / cm.sum(axis=1)[:, np.newaxis]
     plt.imshow(cm, interpolation='nearest', cmap=plt.cm.Blues)
-    plt.title("Confusion Matrix")
+#    plt.title("Confusion Matrix")
     plt.colorbar()
     tick_marks = np.arange(len(classes))
     plt.xticks(tick_marks, classes, rotation=45)
@@ -151,11 +151,17 @@ if __name__ == '__main__':
     actual = []
     predicted = []
     
+    useDomestic = True
+    usePrimaryType = True
+    useWard = True
+    useLocationDescription = True
+    
     for i in range(dataReader.getMax()): 
-        instance = dataReader.getNext()
+        instance = dataReader.getNext(True)
         if not instance == None:
-            print (i)
-            result = naive.classify(instance)
+            if i % 25000 == 0:
+               print (i)
+            result = naive.classify(instance, useDomestic, usePrimaryType, useWard, useLocationDescription)
             if result == None:
                 continue
             predicted.append(result["Prediction"])
