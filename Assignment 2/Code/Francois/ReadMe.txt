@@ -1,3 +1,13 @@
+This is Python code for MapReduce using the MRJob Python package.
+All MapReduce Python scripts are suffixed by .mr.py. All visualization-specific scripts are suffixed by .viz.py. 
+
+There are 2 main categories of jobs:
+1. Feature extraction (summary, aggregation, counts, averages, etc., named 1-7), which includes a script to visualise each extractor's results using Matplotlib.
+2. The Naive Bayes part. First, the likelihoods are extracted using [Arrests Likelihood Table Extractor.mr.py]. Then, the classifier is tested in [Arrests Naive Bayes Classifier.py].
+
+In the [Results] folder are the results of the feature extractors and the NB likelihoods. These results can be used to visualise.
+
+Below are examples of some of the simpler aggregations (called features), and how to run them from the command line. Change the filename to match your location. The first entry is on the 'smaller.csv' file, which is an extract of the much bigger file, which was used for development purposes:
 
 == Feature 1 - Crimes per Year
 python '1. Crimes per Year.mr.py' /home/francois/Source/smaller.csv > './Results/1. Crimes per Year.txt'
@@ -30,3 +40,5 @@ python '7. Arrests per Year.mr.py' /home/francois/Source/Crimes_-_2001_to_presen
 == Arrests Likelihood Table Extractor
 python 'Arrests Likelihood Table Extractor.mr.py' /home/francois/Source/smaller.csv > './Results/Arrests Likelihood Table.txt'
 python 'Arrests Likelihood Table Extractor.mr.py' /home/francois/Source/Crimes_-_2001_to_present.csv > './Results/Arrests Likelihood Table.txt'
+
+
