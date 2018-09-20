@@ -1,0 +1,5 @@
+Comment 1: The ID is used in Naive Bayes
+Comment 3: We can include weather-related things in Assignment 3, but I think the dataset as is has enough to work with. We can break some of the visualisations into monthly if need be.
+Comment 5: Ward is a factor, Naive Bayes doesn't use distance calculations.
+Comment 7: I stated that disk space is my issue, not processing time, therefore its 'cheaper' using this approach, and it shows that you can do such logic in the map phase.
+
