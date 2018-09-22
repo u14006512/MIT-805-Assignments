@@ -1,0 +1,22 @@
+This file contains some suggestions for content for assignment 3 (visualisations).
+
+Have a look in this directory for some of the visualisation I've looked at (simple stuff in Python, uses the output from MapReduce):
+    https://github.com/u14006512/MIT-805-Assignments/tree/master/Assignment%202/Code/Francois
+    
+Remember that there is a lot of probability/likelihood data in 
+  https://github.com/u14006512/MIT-805-Assignments/blob/master/Assignment%202/Code/Francois/Results/Arrests%20Likelihood%20Table.txt
+as pertains to arrests (this is what the Naive Bayes was trained on). 
+  
+=== MUST_HAVES
+I think its essential that we show the 'simpler' stuff as well, like a basic bar chart with crime count per type. 
+[ ] Crimes per year, barchart using matplotlib in Python, https://github.com/u14006512/MIT-805-Assignments/blob/master/Assignment%202/Code/Francois/1.%20Crimes%20per%20Year.viz.py
+[ ] Crimes per type, barchart using matplotlib in Python, https://github.com/u14006512/MIT-805-Assignments/blob/master/Assignment%202/Code/Francois/4.%20Crimes%20per%20Type.viz.py
+[ ] Arrests per year (perhaps rather as a percentage), barchart using matplotlib in Python, https://github.com/u14006512/MIT-805-Assignments/blob/master/Assignment%202/Code/Francois/7.%20Arrests%20per%20Year.viz.py
+[ ] Visualisations for the SOM as described in assignment 2.
+
+=== NICE_TO_HAVES
+It would be nice to have a longitudinal element, where we show things over or across time. 
+[ ] Heat map with location data overlayed onto a map of the Chicago inner city. Not sure what to show yet, maybe arrest rate as a percentage?
+
+
+
