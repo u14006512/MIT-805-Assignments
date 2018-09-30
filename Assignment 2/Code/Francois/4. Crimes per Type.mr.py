@@ -5,10 +5,10 @@ class MRCrimesPerType(MRJob):
     def mapper(self, _, line):
         reader = csv.reader(line.splitlines(), quotechar='"', delimiter=',')
         splitted = next(reader)
-        description = splitted[6] # == type
+        description = splitted[5] # == type
 
         try:
-            if not description == 'Description':
+            if not description == 'Primary Type':
                 yield description, 1
         except:
             pass
