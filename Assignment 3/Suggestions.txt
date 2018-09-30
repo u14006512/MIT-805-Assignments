@@ -18,5 +18,34 @@ I think its essential that we show the 'simpler' stuff as well, like a basic bar
 It would be nice to have a longitudinal element, where we show things over or across time. 
 [ ] Heat map with location data overlayed onto a map of the Chicago inner city. Not sure what to show yet, maybe arrest rate as a percentage?
 
+====Comments about Visualisations: Emilio
+I just thought I'd separate my own thoughts on the matter to keep everything nice and neat.
+
+I don't think we need to visualise anything using the whole dataset; I've run a lot of the MapReduce extractors and I have that data so it's very easy to plug those results into a visualisation tool like Python's Plot and then get out a nice graph that's still a summary of the dataset as a whole.
+
+Importantly, we need to display a variety of things. 
+
+I think that we have enough to display some of the graphs as described above. 
+
+====SOM Visualisations
+1) U-Matrix
+2) Labelled Maps 
+
+To produce these, I need a list of geo-location data with labels. Francois, I think you might be able to provide me with that. 
+I think I can then produce the maps and visualisations. Importantly, I don't think a huge map will be necessary (or even possible) so that's not a huge issue.
+
+====Apriori Visualisations
+I think I can produce some visualisations of the rules. In a tree structure possibly, I might have to play around with them. At worst, we'll show a table with all of the results and that will have to do to demonstrate rules. The reason I think we need to put them there, is because they form a huge part of the learned insight into the dataset.
+
+We need to have them there to talk about and so they need to be included.
+
+====Insight
+In the structure I've laid down for the document, basically each visualisation must be succeeded by a discussion of:
+1) What is shown
+2) Why it's important
+3) Does it have any issues
+
+This way, we can tie everything together at the end in a more general results discussion by referencing some of the facts earlier on.
+
 
 
