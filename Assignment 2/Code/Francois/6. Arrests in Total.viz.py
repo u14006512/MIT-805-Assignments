@@ -15,5 +15,5 @@ sizes = [counts['No Arrest'], counts['Arrest']]
 fig1, ax1 = plt.subplots()
 ax1.pie(sizes,labels=labels, autopct='%1.1f%%', startangle=90)
 ax1.axis('equal')
-plt.title('Arrests over the entire period (2001 - 2018)')
+#plt.title('Arrests over the entire period (2001 - 2018)')
 plt.show()
