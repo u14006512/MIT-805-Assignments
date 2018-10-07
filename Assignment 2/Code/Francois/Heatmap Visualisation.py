@@ -14,7 +14,7 @@ lines = 6683206
 rng = [x + 2 for x in range(lines-1)]
 data = []
 for i in rng:
-    if (i % 10 != 0): continue
+    if (i % 1 != 0): continue
     if (i >= len(rng)): break
     line = linecache.getline(LOCATION, rng[i])
     reader = csv.reader(line.splitlines(), quotechar='"', delimiter=',')
@@ -41,13 +41,28 @@ filteredData = [x for x in data if x[6] == 'GAS STATION']
 filteredData = [x for x in data if x[2] == False]
 filteredData = [x for x in data if x[2] == True]
 filteredData = [x for x in data if x[7] == 28 and x[6] == 'GAS STATION'] 
-filteredData = [x for x in data if x[7] == 28 and x[4] == 'BURGLARY' and x[5] > 2010] 
+
+filteredData = [x for x in data if x[7] == 24 and x[4] == 'BURGLARY' and x[5] == 2002] 
+filteredData = [x for x in data if x[7] == 24 and x[4] == 'BURGLARY' and x[5] == 2010] 
+filteredData = [x for x in data if x[7] == 24 and x[4] == 'BURGLARY' and x[5] == 2017] 
+
+filteredData = [x for x in data if x[2] == True and x[5] == 2017]
+filteredData = [x for x in data if x[2] == False and x[5] == 2017]
+
+filteredData = [x for x in data if x[4] == 'NARCOTICS' and x[5] == 2017]
+
+filteredData = [x for x in data if x[6] == 'GAS STATION' and x[4] == 'MOTOR VEHICLE THEFT' and x[5] == 2017] 
+
+# Ward 43 has the lowest arrest rate
+filteredData = [x for x in data if x[7] == 43 and x[5] == 2017 and x[2] == True] 
+filteredData = [x for x in data if x[7] == 43 and x[5] == 2017 and x[2] == False] 
+
+filteredData = [x for x in data if x[5] == 2017 and x[3] == True] 
 
 m = folium.Map([41.8281, -87.6298], zoom_start=12, tiles = "Stamen Terrain")
-hm_wide = HeatMap([(x[0], x[1]) for x in filteredData], min_opacity=0.025, radius=10.5, blur=23, max_zoom=1)
+hm_wide = HeatMap([(x[0], x[1]) for x in filteredData], min_opacity=0.025, radius=8, blur=18, max_zoom=1)
 m.add_child(hm_wide)
 m.save("overallmap.html")
-
 
 
 

@@ -13,7 +13,7 @@ probabilities = probabilities["Ward"]
 probabilities = [(v, k) for k, v in probabilities.items()]
 
 probabilities.sort(key=lambda tup: (tup[0][2]), reverse=True)
-probabilities = probabilities[:20]
+#probabilities = probabilities[:20]
 probabilities = [(x[1], x[0][0] / (x[0][0] + x[0][1])) for x in probabilities]
 probabilities.sort(key=lambda tup: (tup[1]))
 
