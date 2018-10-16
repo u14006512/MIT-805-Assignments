@@ -1,0 +1,67 @@
+---
+title: "Script to calculate ratios of Chicago crimes over daily average temperatures."
+output: html_notebook
+---
+
+```{r}
+library(dplyr)
+library(lubridate)
+library(ggplot2)
+library(graphics)
+options(digits=4)
+```
+
+```{r}
+IsDate <- function(mydate, date.format = "%m/%d/%y") {
+  tryCatch(!is.na(as.Date(mydate, date.format)),  
+           error = function(err) {FALSE})  
+}
+```
+
+```{r}
+crimes<- read.csv('Crimes_-_2001_to_present.csv')
+```
+
+```{r}
+crimesdate<-as.data.frame(as.Date(substr(as.character(crimes$Date),1,10),"%m/%d/%Y"))
+colnames(crimesdate)<-"Day"
+crimes2<-cbind(crimes,crimesdate)
+crimes3<-crimes2[c('Day','Primary.Type','Location.Description','Arrest','Domestic')]
+```
+
+```{r}
+temps<-read.csv("means.csv")
+temps1<-temps[c("Date","Mean1", "Mean2", "Mean3", "Mean4", "Mean5", "Mean6", "Mean7")]
+names(temps1)<-c("Day","Mean1", "Mean2", "Mean3", "Mean4", "Mean5", "Mean6", "Mean7")
+temps1$Day<-as.Date(temps1$Day,origin="1970-01-01")
+```
+
+```{r}
+C_T<-merge(x=crimes3, y=temps1, by="Day")
+write.csv(C_T,file="Crime_temp.csv")
+```
+
+```{r}
+brks<-c(-40,-35,-30,-25,-20,-15,-10,-5,0,5,10,15,20,25,30,35,40)
+count<-matrix(c(1:(16*2)), nrow=16, ncol=2)
+ratios<-count
+
+-count[,1]<-hist(C_T$Mean1[C_T$Domestic=="true"], breaks=brks)$counts
+
+count[,1]<-hist(C_T$Mean1, breaks=brks)$counts
+count[,2]<-hist(temps$Tavg,breaks=brks)$counts
+
+ratios[,2]<-count[,2]/sum(count[,2])
+ratios[,1]<-count[,1]/sum(count[,1])
+ratios[,1]<-ratios[,1]/ratios[,2]
+```
+
+```{r}
+mxr<-ceiling(max(ratios,na.rm=TRUE)/2)*2
+brks2<-brks[2:17]
+ratios2<-cbind(as.data.frame(ratios),brks2)
+write.csv(ratios2,file="CT_ratios.csv")
+plot(x=ratios2$brks2,y=ratios2[,1], ylim=c(0,mxr))
+plot(x=ratios2$brks2,y=ratios2[,2], ylim=c(0,1))
+```
+

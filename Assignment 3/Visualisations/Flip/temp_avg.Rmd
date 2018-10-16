@@ -1,0 +1,52 @@
+---
+title: "Script to read NOAA daily temperatures, process and write to file."
+output: html_notebook
+---
+
+
+```{r}
+#Read Chicago O'Hare International Airport daily weather dataset downloaded from the NOAA website.
+Weather<-read.csv("1458201.csv")
+
+Temp_avg<-subset(Weather,select=c("DATE","TAVG"))
+Temp_avg<-Temp_avg[!is.na(Temp_avg$TAVG),]
+Temp_avg[]<-lapply(Temp_avg,as.character)
+
+Temp_avg<-Temp_avg[Temp_avg$DATE>"2010-01-01",] # select after TAVG gap.
+Temp_avg$DATE<-as.Date(Temp_avg$DATE)
+plot(Temp_avg$DATE,Temp_avg$TAVG)
+```
+
+
+```{r}
+#Extract date (DATE) and daily average temperature (TAVG) data.
+DT<-subset(Weather,select=c("DATE","TAVG"))
+
+#Create date feature 
+DT$DATE<-as.Date(DT$DATE)
+firstday<-as.numeric(DT$DATE[1])
+lastday<-as.numeric(DT$DATE[nrow(DT)])
+ndays<-lastday-firstday+1
+nmeans<-7
+X<-matrix(nrow=ndays,ncol=nmeans+2)
+# mark days in matrix
+for (day in 1:nrow(DT)){
+  dateno<-as.numeric(DT$DATE[day])
+  X[dateno-firstday+1,1]<-dateno
+  X[dateno-firstday+1,2]<-DT$TAVG[day]
+}
+#Reject records with NA's and calculate TAVG means for 1-7 days before date.
+for (days in 1:nmeans){
+  for (day in days:ndays){
+    if (!anyNA(X[(day-days+1):day,1]))
+      X[day,days+2]<-mean(X[(day-days+1):day,2])
+  }
+}
+
+#Write 1-7 days means of TAVG to file. (to be copied to the Crimes folder)
+Means<-as.data.frame(X)
+names(Means)<-c("Date","Tavg","Mean1","Mean2","Mean3","Mean4","Mean5","Mean6","Mean7")
+write.csv(Means,"means.csv")
+```
+
+

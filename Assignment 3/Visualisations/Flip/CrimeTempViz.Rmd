@@ -1,0 +1,24 @@
+---
+title: "Script to plot correllation of daily average temperature and Chicago Crime."
+output: html_notebook
+---
+
+```{r}
+library(ggplot2)
+```
+
+```{r}
+CTratios<-read.csv("CT_ratios.csv")
+```
+
+```{r}
+na.omit(CTratios)
+CTratios2<-na.omit(CTratios)
+CTratios2[drop(2:10)]
+```
+
+```{r}
+ggplot(data=CTratios2,aes(x=brks2,y=V1)) + geom_line(size=1) + scale_x_continuous(breaks=c(-20,-10,0,10,20,30)) + labs(x="Daily average temperature ⁰C", y="Relative frequency", caption="Adjusted for daily temperature frequency") + theme_light()
+```
+
+
