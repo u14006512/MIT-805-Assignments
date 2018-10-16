@@ -1,5 +1,9 @@
 Latest at the top.
 
+20181016 16:39
+I uploaded two word clouds from Matlab. One for crime types and another for locations.
+I think they are important because they are probably the best visualalisations of the frequency of a large number of terms.
+
 20181016 13:34
 I uploaded three R notebook scripts and the graph.
   tmp_avg.Rmd - load, process and write weather data to a file.
