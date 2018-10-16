@@ -1,2 +1,14 @@
+Latest at the top.
+
+20181016 13:34
+I uploaded three R notebook scripts and the graph.
+  tmp_avg.Rmd - load, process and write weather data to a file.
+  CTratios.Rmd - load crimes and processed weather data, merge and calculate ratios and write it to a file. 
+    I calculated ratios for averages of 1-7 days before the crime date but I plotted only the 1-day ratios.
+  CrimeTempViz.Rmd - load ratios and draw graph.
+I also added a section to the report. I did not recompile it, in case we run out of recompile credits. 
+I don't know how to insert references from Mendeley.
+Thanks guys.
+
 I spent time coding a geospatial visualisation. It consists of the layout of the police districts over a satellite image of Chicago. 
 I made it so that other data, for example a chart over each district, can be added over it. Suggestions for stats to add, please. 
