@@ -1,5 +1,13 @@
 Latest at the top.
 
+
+20181018 15:34
+I put my three R notebooks in Assignment 3/Visualisations/Flip (this folder)
+1.  temp_avg.Rmd      read 1458201.csv daily temperature file and write daily average temperatures to means.csv file.
+2.  CTratios.Rmd      read the Crimes dataset from Crimes_-_2001_to_present.csv and daily average temperatures from means.csv 
+        and write crime vs temperature data to CT_ratios.csv .    
+3.  CrimeTempViz.Rmd  read CT_ratios.csv and plot crime-temp graph.
+
 20181016 16:39
 I uploaded two word clouds from Matlab. One for crime types and another for locations.
 I think they are important because they are probably the best visualisations of the frequency of a large number of terms.
